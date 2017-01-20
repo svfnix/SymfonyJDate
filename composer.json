@@ -1,0 +1,39 @@
+{
+    "name": "svfnix/symfonyjdate",
+    "type": "symfony-bundle",
+    "description": "Jalali (Shamsi) DateTime for Symfony3, Supports year higher than 2038",
+    "keywords": ["datetime", "jalali", "symfony", "jalalidate", "jdatetime","shamsi","farsi","persian","time"],
+    "homepage": "http://sallar.me/projects/jdatetime/",
+    "license": "MIT",
+    "authors": [
+        {
+
+            "name": "Saeed Farahani",
+            "email": "psproot@gmail.com",
+            "homepage": "https://github.com/svfnix",
+            "role": "Developer"
+        },
+        {
+
+            "name": "MohammadHossein Heydari",
+            "email": "mdh.heydari@gmail.com",
+            "homepage": "https://github.com/mdhheydari",
+            "role": "Developer"
+        },
+        {
+            "name": "Sallar Kaboli",
+            "email": "sallar.kaboli@gmail.com",
+            "homepage": "http://sallar.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Svfnix\\JalaliDateBundle\\" : ""
+        }
+    },
+    "minimum-stability": "stable"
+}
