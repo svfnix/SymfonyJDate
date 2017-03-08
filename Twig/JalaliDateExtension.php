@@ -23,6 +23,7 @@ class JalaliDateExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('jdate', array($this, 'jDateFilter')),
+            new \Twig_SimpleFilter('time_ago', array($this, 'timeAgo')),
         );
     }
 
@@ -73,6 +74,28 @@ class JalaliDateExtension extends \Twig_Extension
         }
 
         return $this->jDate->date($format, $date->getTimestamp(), true, true);
+    }
+
+    function timeAgo($time_ago, $format = null, $timezone = null)
+    {
+        $time_ago       = strtotime($time_ago);
+        $cur_time       = time();
+        $time_elapsed   = $cur_time - $time_ago;
+        $minutes        = round($time_elapsed / 60 );
+        $hours          = round($time_elapsed / 3600);
+        $days           = round($time_elapsed / 86400 );
+
+        if($days > 2){
+            return $this->jDateFilter($time_ago, $format, $timezone);
+        } else if ($days > 1){
+            return 'دیروز';
+        } else if($hours) {
+            return "{$hours} ساعت پیش";
+        } else if($minutes) {
+            return "{$minutes} دقیقه پیش";
+        } else {
+            return 'لحظاتی پیش';
+        }
     }
 
     public function getName() {
