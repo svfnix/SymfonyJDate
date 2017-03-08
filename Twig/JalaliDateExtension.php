@@ -91,16 +91,30 @@ class JalaliDateExtension extends \Twig_Extension
         $days           = round($time_elapsed / 86400 );
 
         if($days > 2){
-            return $this->jDateFilter($time_ago, $format, $timezone);
+            return $this->convertNumbers($this->jDateFilter($time_ago, $format, $timezone));
         } else if ($days > 1){
             return 'دیروز';
         } else if($hours) {
-            return "{$hours} ساعت پیش";
+            return $this->convertNumbers("{$hours} ساعت پیش");
         } else if($minutes) {
-            return "{$minutes} دقیقه پیش";
+            return $this->convertNumbers("{$minutes} دقیقه پیش");
         } else {
             return 'لحظاتی پیش';
         }
+    }
+
+
+    /**
+     * Converts latin numbers to farsi script
+     * @param string $matches
+     * @return mixed
+     */
+    private static function convertNumbers($matches)
+    {
+        $farsi_array   = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+        $english_array = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+        return str_replace($english_array, $farsi_array, $matches);
     }
 
     public function getName() {
