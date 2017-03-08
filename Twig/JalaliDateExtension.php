@@ -78,6 +78,11 @@ class JalaliDateExtension extends \Twig_Extension
 
     function timeAgo($time_ago, $format = null, $timezone = null)
     {
+
+        if($time_ago instanceof \DateTime){
+            $time_ago = $time_ago->format('Y-m-d H:i:s');
+        }
+
         $time_ago       = strtotime($time_ago);
         $cur_time       = time();
         $time_elapsed   = $cur_time - $time_ago;
