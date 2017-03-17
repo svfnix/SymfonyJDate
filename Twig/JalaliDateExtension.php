@@ -17,17 +17,17 @@ class JalaliDateExtension extends \Twig_Extension
 
     public function __construct(JDate $jDate) {
         $this->jDate = $jDate;
-    } 
+    }
 
     public function getFilters()
     {
         return array(
             new \Twig_SimpleFilter('jdate', [$this, 'jDateFilter'], ['needs_environment' => true]),
-            new \Twig_SimpleFilter('time_ago', [$this, 'timeAgo']),
+            new \Twig_SimpleFilter('time_ago', [$this, 'timeAgo'], ['needs_environment' => true]),
         );
     }
 
-    public function jDateFilter($env, $date, $format = null, $timezone = null) {
+    public function jDateFilter(\Twig_Environment $env, $date, $format = null, $timezone = null) {
         if (null === $format) {
             $format = $date instanceof \DateInterval ? self::DEFAULT_INTERVAL_FORMAT : self::DEFAULT_DATE_FORMAT;
         }
@@ -69,7 +69,7 @@ class JalaliDateExtension extends \Twig_Extension
             $date = '@'.$date;
         }
 
-        $date = new \DateTime($date, $env->getExtension('core')->getTimezone());
+        $date = new \DateTime($date, $env->getExtension('Twig_Extension_Core')->getTimezone());
         if (false !== $timezone) {
             $date->setTimezone($timezone);
         }
@@ -77,7 +77,7 @@ class JalaliDateExtension extends \Twig_Extension
         return $this->jDate->date($format, $date->getTimestamp(), true, true);
     }
 
-    function timeAgo($time_ago, $format = null, $timezone = null)
+    function timeAgo(\Twig_Environment $env, $time_ago, $format = null, $timezone = null)
     {
 
         if($time_ago instanceof \DateTime){
@@ -92,7 +92,7 @@ class JalaliDateExtension extends \Twig_Extension
         $days           = round($time_elapsed / 86400 );
 
         if($days > 2){
-            return $this->convertNumbers($this->jDateFilter($time_ago, $format, $timezone));
+            return $this->convertNumbers($this->jDateFilter($env, $time_ago, $format, $timezone));
         } else if ($days > 1){
             return 'دیروز';
         } else if($hours) {
