@@ -22,12 +22,12 @@ class JalaliDateExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('jdate', array($this, 'jDateFilter')),
-            new \Twig_SimpleFilter('time_ago', array($this, 'timeAgo')),
+            new \Twig_SimpleFilter('jdate', [$this, 'jDateFilter'], ['needs_environment' => true]),
+            new \Twig_SimpleFilter('time_ago', [$this, 'timeAgo']),
         );
     }
 
-    public function jDateFilter($date, $format = null, $timezone = null) {
+    public function jDateFilter($env, $date, $format = null, $timezone = null) {
         if (null === $format) {
             $format = $date instanceof \DateInterval ? self::DEFAULT_INTERVAL_FORMAT : self::DEFAULT_DATE_FORMAT;
         }
@@ -36,10 +36,10 @@ class JalaliDateExtension extends \Twig_Extension
             return $date->format($format);
         }
 
-        return $this->jDateConverter($date, $format, $timezone);
+        return $this->jDateConverter($env, $date, $format, $timezone);
     }
 
-    public function jDateConverter($date, $format, $timezone) {
+    public function jDateConverter($env, $date, $format, $timezone) {
         if (false !== $timezone) {
             if (null === $timezone) {
                 $timezone = new \DateTimeZone(date_default_timezone_get());
@@ -64,6 +64,7 @@ class JalaliDateExtension extends \Twig_Extension
             return $this->jDate->date($format, $date->getTimestamp(), true, true);
         }
 
+        $asString = (string) $date;
         if (ctype_digit($asString) || (!empty($asString) && '-' === $asString[0] && ctype_digit(substr($asString, 1)))) {
             $date = '@'.$date;
         }

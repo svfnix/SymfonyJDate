@@ -1,12 +1,15 @@
 services:
+
     symfony_persia.jdate_lib:
         class: Svfnix\JalaliDateBundle\lib\JalaliDateTime
         arguments: [ true, true ]
         public: false
+
     symfony_persia.jdate:
         class: Svfnix\JalaliDateBundle\Service\JalaliDateTime
         arguments: [ '@symfony_persia.jdate_lib' ]
         public: true
+
     symfony_persia.jdate_extension:
         class: Svfnix\JalaliDateBundle\Twig\JalaliDateExtension
         arguments: [ '@symfony_persia.jdate_lib' ]
