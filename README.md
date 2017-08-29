@@ -11,7 +11,7 @@ jDateTime Requires **PHP >= 5.2**
 #Installation
 
 ```
-composer require symfony_persia/symfonyjdate
+composer require svfnix/symfonyjdate
 ```
 And then add the package to app/AppKernel.php
 
@@ -47,7 +47,7 @@ $jDate = $serviceContainer->get('symfony_persia.jdate');
 - [Afshin Mehrabani](http://afshinm.name)  
 - [Amir Latifi](http://amiir.me)
 - [Ruhollah Namjoo](https://github.com/namjoo)
-- [Saeed_farahani](https://github.com/svfnix)
+- [Saeed Vasheghani Farahani](https://github.com/svfnix)
 
 ##License
 Symfony JalaliDate Bundle was created by [MohammadHossein Heydari](https://github.com/mdhheydari) and released under the [MIT License](http://opensource.org/licenses/mit-license.php).
